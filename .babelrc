@@ -1,0 +1,24 @@
+{
+	"presets": [
+		[
+			"@babel/preset-env",
+			{
+				"modules": false,
+				"loose": true,
+				"useBuiltIns": "usage",
+				"corejs": 3
+			}
+		],
+		"@babel/preset-react"
+	],
+	"plugins": [
+		"@babel/plugin-syntax-class-properties",
+		"@babel/plugin-proposal-class-properties",
+		"@babel/plugin-syntax-dynamic-import"
+	],
+	"env": {
+		"test": {
+			"presets": [["@babel/preset-env"], "@babel/preset-react"]
+		}
+	}
+}
