@@ -1,8 +1,7 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
-/build
 /dist
-/functions-build
+/transpiled*
 
 # dependencies
 /node_modules

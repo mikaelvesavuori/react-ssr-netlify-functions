@@ -7,7 +7,5 @@ import App from "./App";
 //ReactDOM.render(<App />, document.getElementById("root"));
 
 // Server-side rendering
-ReactDOM.hydrate(
-	<App data={window.__INITIAL__DATA__.data} />,
-	document.getElementById("root")
-);
+// window.__INITIAL__DATA__.data
+ReactDOM.hydrate(<App data={"asdasda"} />, document.getElementById("root"));

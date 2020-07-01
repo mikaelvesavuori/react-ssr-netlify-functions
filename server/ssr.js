@@ -12,7 +12,7 @@ import { getHtml } from "./getHtml";
 import { style } from "./style";
 
 // Import React application
-import App from "../src/App";
+import App from "../transpiled-src/App";
 
 // Setup for Express
 const app = express();
@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Data to pass down, could be things like server headers or data fetched from an API
 const data = {
-	data: "Something here"
+	data: "Something here",
 };
 
 // Helper variables
@@ -41,7 +41,7 @@ app.get(BASE_PATH, (req, res) => {
 		title: "React SSR",
 		body: REACT_HTML,
 		data: data,
-		styles: style
+		styles: style,
 	});
 
 	res.send(HTML);

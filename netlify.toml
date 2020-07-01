@@ -1,4 +1,5 @@
 [build]
   command = "npm run build"
-  publish = "dist"
-  functions = "functions-build"
+  publish = "dist/client"
+	functionsSource = "transpiled-server"
+  functions = "dist/server"

@@ -24,14 +24,11 @@
 		"@babel/preset-react": "^7.9.1",
 		"babel-loader": "^8.1.0",
 		"babel-plugin-module-resolver": "^4.0.0",
-		"clean-webpack-plugin": "^3.0.0",
 		"copy-webpack-plugin": "^5.1.1",
 		"css-loader": "^3.4.2",
 		"file-loader": "^6.0.0",
 		"html-loader": "^1.0.0",
 		"html-webpack-plugin": "^4.0.0",
-		"mini-css-extract-plugin": "^0.9.0",
-		"netlify-lambda": "^1.6.3",
 		"prop-types": "^15.7.2",
 		"script-ext-html-webpack-plugin": "^2.1.4",
 		"style-loader": "^1.1.3",
@@ -42,11 +39,15 @@
 		"workbox-webpack-plugin": "^5.1.1"
 	},
 	"scripts": {
-		"start": "webpack-dev-server --config webpack.dev.js --open --mode development",
-		"start:server": "netlify-lambda serve functions",
-		"build": "webpack --config webpack.prod.js --mode production",
-		"build:functions": "yarn build && netlify-lambda build functions",
-		"deploy": "yarn build && yarn build:functions && netlify deploy"
+		"dev": "netlify dev",
+		"clean": "rm -rf dist/client && rm -rf dist/server && rm -rf transpiled-server && rm -rf transpiled-src",
+		"build": "yarn build:client && yarn build:server",
+		"build:client": "rm -rf dist/client && webpack --config webpack.prod.js --mode production",
+		"build:server": "rm -rf dist/server && yarn babel:transpile:server && yarn babel:transpile:client && yarn netlify:package",
+		"netlify:package": "netlify functions:build",
+		"babel:transpile:server": "rm -rf transpiled-server && npx babel server --out-dir transpiled-server --presets=@babel/preset-env,@babel/preset-react",
+		"babel:transpile:client": "rm -rf transpiled-src && npx babel src --out-dir transpiled-src --presets=@babel/preset-env,@babel/preset-react",
+		"deploy": "yarn clean && yarn build:client && yarn build:server && netlify deploy"
 	},
 	"proxy": {
 		"/.netlify/functions": {

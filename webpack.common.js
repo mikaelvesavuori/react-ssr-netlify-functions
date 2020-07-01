@@ -3,29 +3,28 @@ const webpack = require("webpack");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 
 const assetsDir = path.resolve(__dirname, "src/assets/");
 const srcDir = path.resolve(__dirname, "src/");
-const distDir = path.resolve(__dirname, "dist");
+const distDir = path.resolve(__dirname, "dist/client");
 
 module.exports = {
 	watch: false,
 	context: srcDir,
 	entry: {
-		app: "./index.jsx"
+		app: "./index.js",
 	},
 	output: {
 		path: distDir,
 		filename: "[name].js", //[hash]; Assume single bundle for this demo
-		publicPath: "/"
+		publicPath: "/",
 	},
 	resolve: {
 		modules: [
 			path.resolve(__dirname, "node_modules"),
 			path.resolve(__dirname, "src"),
-			path.resolve(__dirname, "./")
+			path.resolve(__dirname, "./"),
 		],
 		extensions: [
 			".js",
@@ -37,8 +36,8 @@ module.exports = {
 			".svg",
 			".png",
 			".woff2",
-			".woff"
-		]
+			".woff",
+		],
 	},
 	module: {
 		rules: [
@@ -46,14 +45,14 @@ module.exports = {
 				test: /\.(js|jsx)$/,
 				use: [
 					{
-						loader: "babel-loader"
-					}
+						loader: "babel-loader",
+					},
 				],
-				exclude: /node_modules/
+				exclude: /node_modules/,
 			},
 			{
 				test: /\.css$/i,
-				use: ["style-loader", "css-loader"]
+				use: ["style-loader", "css-loader"],
 			},
 			{
 				test: /\.(jpg|jpeg|svg|png|woff2|woff)$/,
@@ -62,31 +61,30 @@ module.exports = {
 						loader: "file-loader",
 						options: {
 							name: "[path][name].[ext]",
-							emitFile: false
-						}
-					}
+							emitFile: false,
+						},
+					},
 				],
 				include: assetsDir,
-				exclude: /node_modules/
+				exclude: /node_modules/,
 			},
 			{
 				test: /\.html$/,
 				use: [
 					{
-						loader: "html-loader"
-					}
+						loader: "html-loader",
+					},
 				],
-				exclude: /node_modules/
-			}
-		]
+				exclude: /node_modules/,
+			},
+		],
 	},
 	plugins: [
-		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin([
 			{
 				from: `${srcDir}/assets/`,
-				to: `${distDir}/assets/` // Ugly as shit, but is a fix until we manage to get paths to work correctly again
-			}
+				to: `${distDir}/assets/`, // Ugly as shit, but is a fix until we manage to get paths to work correctly again
+			},
 		]),
 		new HtmlWebpackPlugin({
 			template: path.join(srcDir, "index.html"),
@@ -96,8 +94,8 @@ module.exports = {
 				collapseInlineTagWhitespace: true,
 				collapseWhitespace: true,
 				removeComments: true,
-				removeRedundantAttributes: true
-			}
-		})
-	]
+				removeRedundantAttributes: true,
+			},
+		}),
+	],
 };
