@@ -80,12 +80,14 @@ module.exports = {
 		],
 	},
 	plugins: [
-		new CopyWebpackPlugin([
-			{
-				from: `${srcDir}/assets/`,
-				to: `${distDir}/assets/`, // Ugly as shit, but is a fix until we manage to get paths to work correctly again
-			},
-		]),
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: `${srcDir}/assets/`,
+					to: `${distDir}/assets/`,
+				},
+			],
+		}),
 		new HtmlWebpackPlugin({
 			template: path.join(srcDir, "index.html"),
 			path: distDir,

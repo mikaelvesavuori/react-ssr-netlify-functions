@@ -20,6 +20,8 @@ class App extends React.Component {
 	};
 
 	render() {
+		console.log(this.state.data);
+
 		return (
 			<div>
 				{this.state.isOpen && (
@@ -27,7 +29,6 @@ class App extends React.Component {
 						<button onClick={this.handleOpenModal}>Open</button>
 					</div>
 				)}
-
 				{!this.state.isOpen && (
 					<div size="4">
 						<DemoComponent />
